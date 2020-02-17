@@ -45,10 +45,10 @@ function ScoreBoard(){
   const [lionsScore, setLionsScore] = useState(0),
         [tigersScore, setTigersScore] = useState(0),
         [quarter, setQuarter] = useState(0),
-        [seconds, setSeconds] = useState(8),
-        [tensSeconds, setTensSeconds] = useState(5),
-        [minutes, setMinutes] = useState(9),
-        [tensMinutes, setTensMinutes] = useState(5);
+        [seconds, setSeconds] = useState(0),
+        [tensSeconds, setTensSeconds] = useState(0),
+        [minutes, setMinutes] = useState(0),
+        [tensMinutes, setTensMinutes] = useState(0);
     useEffect(timer);
   
   function timer(){
@@ -63,9 +63,21 @@ function ScoreBoard(){
           if(minutes > 0 && (minutes + 1) % 10 === 0){
             setTensMinutes(tensMinutes + 1);
           }
+
+          if(tensMinutes === 1 && (minutes + 1) % 5 === 0){
+            resetTimer();
+            setQuarter((quarter + 1) % 5)
+          }
         }
       }
     },1000)
+  }
+
+  function resetTimer(){
+    setSeconds(0);
+    setTensSeconds(0);
+    setMinutes(0);
+    setTensMinutes(0);
   }
 
   function clickHandler(teamName, amount){
